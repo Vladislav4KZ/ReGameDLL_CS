@@ -534,7 +534,7 @@ int CSave::WriteFields(const char *pname, void *pBaseData, TYPEDESCRIPTION *pFie
 			WriteInt(pTest->fieldName, (int *)(char *)pOutputData, pTest->fieldSize);
 			break;
 		case FIELD_FUNCTION:
-			WriteFunction(pTest->fieldName, &pOutputData, pTest->fieldSize);
+			WriteFunction(pTest->fieldName, (void **)pOutputData, pTest->fieldSize);
 			break;
 		default:
 			ALERT(at_error, "Bad field type\n");
@@ -749,9 +749,9 @@ int CRestore::ReadField(void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCoun
 					case FIELD_FUNCTION:
 					{
 						if (!Q_strlen((char *)pInputData))
-							*((int *)pOutputData) = 0;
+							*((void **)pOutputData) = nullptr;
 						else
-							*((int *)pOutputData) = FUNCTION_FROM_NAME((char *)pInputData);
+							*((void **)pOutputData) = FUNCTION_FROM_NAME((char *)pInputData);
 
 						break;
 					}

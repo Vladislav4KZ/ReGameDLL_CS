@@ -48,7 +48,7 @@
 
 	#define DebuggerBreak() raise(SIGTRAP)
 #else
-	#define DebuggerBreak() DebugBreak()
+	#define DebuggerBreak() __debugbreak()
 #endif
 
 #define	DebuggerBreakIfDebugging() if (Plat_IsInDebugSession()) { DebuggerBreak(); }
